@@ -1,6 +1,7 @@
 
 import logic.mapa;
-import logic.movimento;
+import logic.hero;
+
 
 public class main {
 
@@ -12,7 +13,9 @@ public class main {
 		
 		while (true) {
 		mapaObject.printMap();
+		if(hero.win==1) {System.out.print("\nGanhou sabe?\n");break;}
 		gameObject.Iteracao();
+		if(hero.win==-1) {System.out.print("\nPerdeu sabe?\n");break;}
 		
 		
 		}

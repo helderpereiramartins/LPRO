@@ -1,6 +1,5 @@
 import java.util.Scanner;
 
-import logic.mapa;
 import logic.movimento;
 
 

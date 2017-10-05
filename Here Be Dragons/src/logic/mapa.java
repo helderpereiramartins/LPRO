@@ -32,6 +32,8 @@ public class mapa {
 				System.out.print(mapa[i][j] + " ");
 			}
 			System.out.println();
+			
 		}
+		
 	}
 }
