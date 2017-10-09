@@ -8,7 +8,7 @@ public class movimento {
 		
 		heroObject.MoveHeroi(l, c);
 	
-		
+		if(hero.found_it!=1 && hero.win!=-1)
 		dragon.MoveDragao();
 		
 	}

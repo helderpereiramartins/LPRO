@@ -57,18 +57,18 @@ public class hero {
 					|| mapa.mapa[hero_vector[0] + 1][hero_vector[1]] == "F"
 					|| mapa.mapa[hero_vector[0] - 1][hero_vector[1]] == "F"
 					|| mapa.mapa[hero_vector[0]][hero_vector[1] + 1] == "F"
-					|| mapa.mapa[hero_vector[0]][hero_vector[1] - 1] == "F")) 
+					|| mapa.mapa[hero_vector[0]][hero_vector[1] - 1] == "F")) {
 				win = -1;
+				hero_s = "_";
+			}
 			
 			else if(hero_s == "A" && (mapa.mapa[hero_vector[0] + 1][hero_vector[1]] == "D"
 					|| mapa.mapa[hero_vector[0] - 1][hero_vector[1]] == "D"
 					|| mapa.mapa[hero_vector[0]][hero_vector[1] + 1] == "D"
-					|| mapa.mapa[hero_vector[0]][hero_vector[1] - 1] == "D"
-					|| mapa.mapa[hero_vector[0] + 1][hero_vector[1]] == "F"
-					|| mapa.mapa[hero_vector[0] - 1][hero_vector[1]] == "F"
-					|| mapa.mapa[hero_vector[0]][hero_vector[1] + 1] == "F"
-					|| mapa.mapa[hero_vector[0]][hero_vector[1] - 1] == "F")) 
-				found_it=1;			
+					|| mapa.mapa[hero_vector[0]][hero_vector[1] - 1] == "D")) {
+				found_it=1;		
+				mapa.mapa[dragon.dragon_vector[0]][dragon.dragon_vector[1]]=" ";
+				}	
 			
 			}
 			mapa.mapa[hero_vector[0]][hero_vector[1]] = hero_s;

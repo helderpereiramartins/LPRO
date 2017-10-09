@@ -15,7 +15,7 @@ public class main {
 		mapaObject.printMap();
 		if(hero.win==1) {System.out.print("\nGanhou sabe?\n");break;}
 		gameObject.Iteracao();
-		if(hero.win==-1) {System.out.print("\nPerdeu sabe?\n");break;}
+		if(hero.win==-1) {mapaObject.printMap();System.out.print("\nPerdeu sabe?\n");break;}
 		
 		
 		}

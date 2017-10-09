@@ -43,15 +43,44 @@ public class dragon {
 
 			if (mapa.mapa[dragon_vector[0] + random_l][dragon_vector[1] + random_c] == " ") {
 
-				mapa.mapa[dragon_vector[0]][dragon_vector[1]] = " ";
+				if (mapa.mapa[dragon_vector[0]][dragon_vector[1]] == "F")
+					mapa.mapa[dragon_vector[0]][dragon_vector[1]] = "S";
+				else
+					mapa.mapa[dragon_vector[0]][dragon_vector[1]] = " ";
+
 				dragon_vector[0] = dragon_vector[0] + random_l;
 				dragon_vector[1] = dragon_vector[1] + random_c;
 				mapa.mapa[dragon_vector[0]][dragon_vector[1]] = "D";
 
 				dragon_moved = 1;
 
+			} else if (mapa.mapa[dragon_vector[0] + random_l][dragon_vector[1] + random_c] == "S") {
+
+				mapa.mapa[dragon_vector[0]][dragon_vector[1]] = " ";
+				dragon_vector[0] = dragon_vector[0] + random_l;
+				dragon_vector[1] = dragon_vector[1] + random_c;
+				mapa.mapa[dragon_vector[0]][dragon_vector[1]] = "F";
+
+				dragon_moved = 1;
+				// \\\\\\\\\\\\\\\\\\\\\\\\\\\adicionar parar isto quando o dragao
+				// morre\\\\\\\\\\\\\\
 			}
 		}
-	}
+		if ((mapa.mapa[dragon_vector[0] + 1][dragon_vector[1]] == "H"
+				|| mapa.mapa[dragon_vector[0] - 1][dragon_vector[1]] == "H"
+				|| mapa.mapa[dragon_vector[0]][dragon_vector[1] + 1] == "H"
+				|| mapa.mapa[dragon_vector[0]][dragon_vector[1] - 1] == "H")) {
+			hero.win = -1;
+			mapa.mapa[hero.hero_vector[0]][hero.hero_vector[1]] = "_";
+		}
 
+		else if ((mapa.mapa[dragon_vector[0] + 1][dragon_vector[1]] == "A"
+				|| mapa.mapa[dragon_vector[0] - 1][dragon_vector[1]] == "A"
+				|| mapa.mapa[dragon_vector[0]][dragon_vector[1] + 1] == "A"
+				|| mapa.mapa[dragon_vector[0]][dragon_vector[1] - 1] == "A")) {
+			hero.found_it = 1;
+			mapa.mapa[dragon_vector[0]][dragon_vector[1]] = " ";
+		}
+
+	}
 }
