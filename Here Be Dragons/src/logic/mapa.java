@@ -19,6 +19,7 @@ public class mapa {
 	dragon dragonObject = new dragon();
 	dragonObject.ColocaDragao();
 	
+	
 	exit exitObject = new exit();
 	exitObject.ColocaSaida();
 	
@@ -34,6 +35,7 @@ public class mapa {
 			System.out.println();
 			
 		}
+		
 		
 	}
 }

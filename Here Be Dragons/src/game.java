@@ -2,10 +2,10 @@ import java.util.Scanner;
 
 import logic.movimento;
 
-
 public class game {
 	public static int l = 0, c = 0;
 	static Scanner comand = new Scanner(System.in);
+	
 	movimento movimentoObject = new movimento();
 	
 	public void Iteracao() {
@@ -39,6 +39,7 @@ public class game {
 			break;
 		}
 		movimentoObject.movement(l, c);
+
 
 	}
 }
