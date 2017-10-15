@@ -13,7 +13,7 @@ public class main {
 		
 		while (true) {
 		mapaObject.printMap();
-		if(hero.win==1) {System.out.print("\nGanhou sabe?\n");break;}
+		if(mapa.getHeroObject().getWin()==1) {System.out.print("\nGanhou sabe?\n");break;}
 		gameObject.Iteracao();
 		if(hero.win==-1) {mapaObject.printMap();System.out.print("\nPerdeu sabe?\n");break;}
 		

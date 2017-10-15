@@ -75,5 +75,8 @@ public class hero {
 		}
 	
 	}
+	public int getWin() {
+		return win;
+	}
 
 }

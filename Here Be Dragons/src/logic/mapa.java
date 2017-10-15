@@ -12,17 +12,23 @@ public class mapa {
 			{ "X", " ", "X", "X", " ", " ", " ", " ", " ", "X" },
 			{ "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" } };
 
+	
+	public static hero heroObject = new hero();
+	static dragon dragonObject = new dragon();
+	exit exitObject = new exit();
+	sord sordObject = new sord();
+	
 	public void ColocaElementos() {
-		hero heroObject = new hero();
+		
 		heroObject.ColocaHeroi();
 
-		dragon dragonObject = new dragon();
+		
 		dragonObject.ColocaDragao();
 
-		exit exitObject = new exit();
+		
 		exitObject.ColocaSaida();
 
-		sord sordObject = new sord();
+		
 		sordObject.ColocaEspada();
 	}
 
@@ -35,5 +41,9 @@ public class mapa {
 
 		}
 
+	}
+
+	public static hero getHeroObject() {
+		return heroObject;
 	}
 }

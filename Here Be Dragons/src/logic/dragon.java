@@ -30,7 +30,7 @@ public class dragon {
 		dragon.dragon_vector = dragon_vector;
 	}
 
-	public static void MoveDragao() {
+	public void MoveDragao() {
 
 		int dragon_moved = 0;
 		while (dragon_moved != 1) {
