@@ -1,12 +1,18 @@
 import java.util.Scanner;
 
-import logic.movimento;
+import logic.Movimento;
 
-public class game {
-	public static int l = 0, c = 0;
+public class Game {
+	private static int l = 0, c = 0;
 	static Scanner comand = new Scanner(System.in);
 	
-	movimento movimentoObject = new movimento();
+	private static final String KEY_UP = "w";
+	private static final String KEY_DOWN = "s";
+	private static final String KEY_RIGHT = "d";
+	private static final String KEY_LEFT = "a";
+			
+	
+	Movimento movimentoObject = new Movimento();
 	
 	public void Iteracao() {
 		while (true) {
@@ -17,19 +23,19 @@ public class game {
 			String comando = comand.nextLine();
 
 			switch (comando) {
-			case "w":
+			case KEY_UP:
 				l = -1;
 				break;
 
-			case "s":
+			case KEY_DOWN:
 				l = 1;
 				break;
 
-			case "d":
+			case KEY_RIGHT:
 				c = 1;
 				break;
 
-			case "a":
+			case KEY_LEFT:
 				c = -1;
 				break;
 			}
