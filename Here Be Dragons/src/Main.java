@@ -6,9 +6,13 @@ public class Main {
 	public static void main(String[] args) {
 
 		Mapa mapaObject = Mapa.getInstance();
-
-			mapaObject.ColocaElementos();
+			
 			Game gameObject = new Game();
+			
+			mapaObject.setNumDragons(gameObject.Dificulty());
+			mapaObject.InsereDragoes();
+			mapaObject.ColocaElementos();
+			
 
 			while (true) {
 				mapaObject.printMap();

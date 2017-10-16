@@ -1,16 +1,30 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Movimento {
 	
-	Mapa mapaObject = Mapa.getInstance();
+	
 	
 	
 	public void movement(int l, int c) {
-		mapaObject.getHeroObject().MoveHeroi(l, c);
-		Hero mapaHero = mapaObject.getHeroObject();
-	
-		if(!mapaHero.isFoundIt() && mapaHero.getWin() !=-1)
-			mapaObject.getDragonObject().MoveDragao();
 		
+		Mapa mapaObject = Mapa.getInstance();		
+		Hero mapaHero = mapaObject.getHeroObject();		
+		ArrayList<Dragon> list = mapaObject.getList();
+		
+		mapaHero.MoveHeroi(l, c);
+		
+		
+		if(mapaHero.isFoundIt()!=0 && mapaHero.getWin() !=-1) {
+			
+			for(int i=0; i<list.size(); i++) {
+
+				
+				list.get(i).MoveDragao();
+				//mapaObject.getDragonObject().MoveDragao();
+			}
+			
+		}
 	}
 }

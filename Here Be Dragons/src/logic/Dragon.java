@@ -1,9 +1,11 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Dragon {
 
-	private static int[] dragonVector;
-	private static String[][] mapaVector;
+	private int[] dragonVector;
+	private String[][] mapaVector;
 
 	public void ColocaDragao() {
 		Mapa mapaObject = Mapa.getInstance();
@@ -27,6 +29,7 @@ public class Dragon {
 				
 				dragonVector[0] = random_l;
 				dragonVector[1] = random_c;
+		
 				
 				dragonPositionAux = true;
 			}
@@ -38,20 +41,26 @@ public class Dragon {
 	}
 
 	public void setDragonVector(int[] dragonVector) {
-		Dragon.dragonVector = dragonVector;
+		this.dragonVector = dragonVector;
 	}
 
 	public void MoveDragao() {
+
 		Mapa mapaObject = Mapa.getInstance();
 		mapaVector = mapaObject.getMapa();
 		Hero mapaHero = mapaObject.getHeroObject();
+		ArrayList<Dragon> list = mapaObject.getList();
+		
+
+		
+		
 		
 		//variável que indica se o dragão está a dormir 0 -> acordado, 1 -> a dormir
 		int randonSleep = (1 + (int) (Math.random() * 2) -1 );
 		//int randonSleep = 1;
 		
 		// Caso o esteja a dormir, atualizamos o mapa e termina-se a execução do método com return
-		if (randonSleep == 1) {
+		if (randonSleep == 1 && mapaVector[dragonVector[0]][dragonVector[1]] != Variables.PIN_DRAG_SWRD) {
 			
 			mapaVector[dragonVector[0]][dragonVector[1]] = Variables.PIN_DRAG_SLEEP;
 			mapaObject.setMapa(mapaVector);
@@ -112,10 +121,11 @@ public class Dragon {
 				|| mapaVector[dragonVector[0]][dragonVector[1] + 1] == Variables.PIN_HERO_ARM
 				|| mapaVector[dragonVector[0]][dragonVector[1] - 1] == Variables.PIN_HERO_ARM)) {
 			
-			mapaHero.setFoundIt(true);
+			mapaHero.setFoundIt(1);
 			
 			mapaVector[dragonVector[0]][dragonVector[1]] = Variables.PIN_HALL;
 			mapaObject.setMapa(mapaVector);
+			list.remove(this);
 		}
 
 	}

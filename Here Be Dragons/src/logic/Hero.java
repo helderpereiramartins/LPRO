@@ -1,10 +1,12 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Hero {
 	private int[] heroVector;
 
 	private String heroState = Variables.PIN_HERO;
-	private boolean foundIt = false;
+	private int foundIt=0;
 
 	private boolean armed = false;
 	private int win = 0;
@@ -13,6 +15,7 @@ public class Hero {
 	
 	public void ColocaHeroi() {
 	 Mapa mapaObject = Mapa.getInstance();
+	 
 		
 		String[][] mapaVector = mapaObject.getMapa();
 		heroVector = new int[2];
@@ -37,7 +40,8 @@ public class Hero {
 	public void MoveHeroi(int l, int c) {
 		Mapa mapaObject = Mapa.getInstance();
 		String[][] mapaVector = mapaObject.getMapa();
-		Dragon mapaDragon = mapaObject.getDragonObject();
+		ArrayList<Dragon> list = mapaObject.getList();
+		//Dragon mapaDragon = mapaObject.getDragonObject();
 
 
 		continueAux = false;
@@ -50,7 +54,7 @@ public class Hero {
 				armed = true;
 				heroState = Variables.PIN_HERO_ARM;
 			}
-			if (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_EXIT && foundIt) {
+			if (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_EXIT && foundIt==0) {
 				win = 1;
 			}
 			
@@ -98,11 +102,34 @@ public class Hero {
 					|| mapaVector[heroVector[0]][heroVector[1] - 1] == Variables.PIN_DRAG_SLEEP
 							 
 							 ) ) {
-				foundIt = true;		
+				foundIt--;		
 				
-				// Drag√£o √© morto
-				mapaVector[mapaDragon.getDragonVector()[0]][mapaDragon.getDragonVector()[1]] = Variables.PIN_HALL ;
-				
+				// Dragaoo √© morto
+				/*faz todas as hipoteses de periferia do heroi e verifica se coincide com
+				 * qualquer um dos dragıes, coordenadas sao comparadas individualmente
+				 * mas tem de ser simultaneas &&*/
+				for(int i=0; i<list.size(); i++) {
+					if(
+							(( (heroVector[0] + 1) == list.get(i).getDragonVector()[0]) 
+							&& ( (heroVector[1]) == list.get(i).getDragonVector()[1]))
+							
+							|| (( (heroVector[0] - 1) == list.get(i).getDragonVector()[0]) 
+							&& ( (heroVector[1]) == list.get(i).getDragonVector()[1]))
+							
+							|| (( (heroVector[0]) == list.get(i).getDragonVector()[0]) 
+							&& ( (heroVector[1] + 1) == list.get(i).getDragonVector()[1]))
+							
+							|| (( (heroVector[0]) == list.get(i).getDragonVector()[0]) 
+							&& ( (heroVector[1] - 1) == list.get(i).getDragonVector()[1]))){
+						
+						
+						/*se se verificar a condiÁ„o no mapa mete " " na posiÁ„o do drag„o 'i'
+						 * e remove esse drag„o da lista (supostamente)*/
+						mapaVector[list.get(i).getDragonVector()[0]][list.get(i).getDragonVector()[1]] = Variables.PIN_HALL ;
+						list.remove(i);
+					}
+				}
+								
 				}	
 			
 			}
@@ -130,11 +157,11 @@ public class Hero {
 	public void setWin(int win) {
 		this.win = win;
 	}
-	public boolean isFoundIt() {
+	public int isFoundIt() {
 		return foundIt;
 	}
-	public void setFoundIt(boolean foundIt) {
-		this.foundIt = foundIt;
+	public void setFoundIt(int foundIt) {
+		this.foundIt=this.foundIt-foundIt;
 	}
 
 }

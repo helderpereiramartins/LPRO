@@ -1,10 +1,10 @@
 package logic;
-
+import java.util.ArrayList;
 
 public final class Mapa {
 
-	private String[][] mapa = 
-		  { { "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" },
+	private String[][] mapa = { 
+			{ "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" },
 			{ "X", " ", " ", " ", " ", " ", " ", " ", " ", "X" }, 
 			{ "X", " ", "X", "X", " ", "X", " ", "X", " ", "X" },
 			{ "X", " ", "X", "X", " ", "X", " ", "X", " ", "X" }, 
@@ -16,11 +16,26 @@ public final class Mapa {
 			{ "X", "X", "X", "X", "X", "X", "X", "X", "X", "X" } };
 
 	private Hero heroObject = new Hero();
-	private Dragon dragonObject = new Dragon();
+	
 	private Exit exitObject = new Exit();
 	private Sord sordObject = new Sord();
+	private int NumDragons;
+	private ArrayList<Dragon> list = new ArrayList<Dragon>();
+	//private Dragon dragonObject = new Dragon();
+	
+	/*cria objetos tipo dragão e coloca na lista*/
+	public void InsereDragoes() {
 
-	/**
+		for (int i = 0; i < NumDragons; i++) {
+			// String DragonObjectString = ("DragonObject" + i).toString();
+			// Dragon DragonObject = new Dragon();
+			Dragon aux = new Dragon();
+			list.add(aux);
+
+		}
+	}
+	
+		/**
 	 * Singleton para garantir que chamamos sempre o mesmo objeto Mapa
 	 */
 	private static final Mapa INSTANCE = new Mapa();
@@ -37,12 +52,20 @@ public final class Mapa {
 		return this.mapa;
 	}
 
-
 	public void ColocaElementos() {
 
 		heroObject.ColocaHeroi();
+		
+		
+			/*percorre a lista de objetos tipo dragao e chama a função coloca para cada um deles (supostamente)*/
+		for(int i=0; i<list.size(); i++) {
 
-		dragonObject.ColocaDragao();
+			list.get(i).ColocaDragao();
+		}
+		
+			//dragonObject.ColocaDragao();
+		
+		
 
 		exitObject.ColocaSaida();
 
@@ -68,16 +91,26 @@ public final class Mapa {
 		this.mapa = mapa;
 	}
 
-	public Dragon getDragonObject() {
+	/*public Dragon getDragonObject() {
 		return dragonObject;
 	}
 
 	public void setDragonObject(Dragon dragonObject) {
 		this.dragonObject = dragonObject;
 	}
-
+*/
 	public void setHeroObject(Hero heroObject) {
 		this.heroObject = heroObject;
 	}
-	
+
+	public void setNumDragons(int numDragons) {
+		NumDragons = numDragons;
+		heroObject.setFoundIt(-numDragons);
+	}
+
+	/*retorna a lista*/
+	public ArrayList<Dragon> getList() {
+		return list;
+	}
+
 }
