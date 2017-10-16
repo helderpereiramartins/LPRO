@@ -1,9 +1,6 @@
 package logic;
 
-/**
- * @author hmartins
- *
- */
+
 public final class Mapa {
 
 	private String[][] mapa = 
