@@ -2,23 +2,19 @@ package logic;
 
 import java.util.ArrayList;
 
-public class Hero {
-	private int[] heroVector;
+public class Hero extends Coordinates {
 
 	private String heroState = Variables.PIN_HERO;
-	private int foundIt=0;
+	private int foundIt = 0;
 
 	private boolean armed = false;
 	private int win = 0;
 	private boolean continueAux = false;
-	
-	
+
 	public void ColocaHeroi() {
-	 Mapa mapaObject = Mapa.getInstance();
-	 
-		
+		Mapa mapaObject = Mapa.getInstance();
+
 		String[][] mapaVector = mapaObject.getMapa();
-		heroVector = new int[2];
 
 		int hero = 0;
 
@@ -27,141 +23,150 @@ public class Hero {
 			int random_c = 1 + (int) (Math.random() * 8);
 
 			if (mapaVector[random_l][random_c] == Variables.PIN_HALL) {
-				
+
 				mapaVector[random_l][random_c] = Variables.PIN_HERO;
 				mapaObject.setMapa(mapaVector);
-				
-				heroVector[0] = random_l;
-				heroVector[1] = random_c;
+
+				Vector[0] = random_l;
+				Vector[1] = random_c;
 				hero = 1;
 			}
 		}
 	}
+
 	public void MoveHeroi(int l, int c) {
 		Mapa mapaObject = Mapa.getInstance();
 		String[][] mapaVector = mapaObject.getMapa();
 		ArrayList<Dragon> list = mapaObject.getList();
-		//Dragon mapaDragon = mapaObject.getDragonObject();
-
 
 		continueAux = false;
 
-		if (mapaVector[heroVector[0] + l][heroVector[1] + c] != Variables.PIN_WALL) {
-			
-		 /************************************ HEROI ************************************************/
-			
-			if (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_SWRD) {
+		if (mapaVector[Vector[0] + l][Vector[1] + c] != Variables.PIN_WALL) {
+
+			/************************************
+			 * HEROI
+			 ************************************************/
+
+			if (mapaVector[Vector[0] + l][Vector[1] + c] == Variables.PIN_SWRD) {
 				armed = true;
 				heroState = Variables.PIN_HERO_ARM;
 			}
-			if (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_EXIT && foundIt==0) {
+			if (mapaVector[Vector[0] + l][Vector[1] + c] == Variables.PIN_EXIT && foundIt == 0) {
 				win = 1;
 			}
-			
-			else if ( (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_EXIT) || 
-					   (mapaVector[heroVector[0] + l][heroVector[1] + c] == Variables.PIN_DRAG_SLEEP)) {
+
+			else if ((mapaVector[Vector[0] + l][Vector[1] + c] == Variables.PIN_EXIT)
+					|| (mapaVector[Vector[0] + l][Vector[1] + c] == Variables.PIN_DRAG_SLEEP)) {
 				continueAux = true;
 			}
 
-			if(!continueAux && win!=1) {
-			mapaVector[heroVector[0]][heroVector[1]] = Variables.PIN_HALL;
-			
-			heroVector[0] = heroVector[0] + l;
-			heroVector[1] = heroVector[1] + c;
+			if (!continueAux && win != 1) {
+				mapaVector[Vector[0]][Vector[1]] = Variables.PIN_HALL;
 
-			
-		/************************************ DRAG√ÉO ************************************************/
+				Vector[0] = Vector[0] + l;
+				Vector[1] = Vector[1] + c;
 
-			
-			
-			if (heroState != Variables.PIN_HERO_ARM && (mapaVector[heroVector[0] + 1][heroVector[1]] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0] - 1][heroVector[1]] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0]][heroVector[1] + 1] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0]][heroVector[1] - 1] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0] + 1][heroVector[1]] == Variables.PIN_DRAG_SWRD
-					|| mapaVector[heroVector[0] - 1][heroVector[1]] == Variables.PIN_DRAG_SWRD
-					|| mapaVector[heroVector[0]][heroVector[1] + 1] == Variables.PIN_DRAG_SWRD
-					|| mapaVector[heroVector[0]][heroVector[1] - 1] == Variables.PIN_DRAG_SWRD)) {
-				win = -1;
-				heroState = Variables.PIN_HERO_DEAD;
-						
-			}
-			
+				/************************************
+				 * DRAG√O
+				 ************************************************/
 
-			
-			
-			// Verificar qualquer frag√£o, a dormir ou acordado. Usado o .toUpperCase() para por sempre o pin do drag√£o a "D"
-			else if(heroState == Variables.PIN_HERO_ARM && 
-					 ( mapaVector[heroVector[0] + 1][heroVector[1]] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0] - 1][heroVector[1]] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0]][heroVector[1] + 1] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0]][heroVector[1] - 1] == Variables.PIN_DRAG
-					|| mapaVector[heroVector[0] + 1][heroVector[1]] == Variables.PIN_DRAG_SLEEP
-					|| mapaVector[heroVector[0] - 1][heroVector[1]] == Variables.PIN_DRAG_SLEEP
-					|| mapaVector[heroVector[0]][heroVector[1] + 1] == Variables.PIN_DRAG_SLEEP
-					|| mapaVector[heroVector[0]][heroVector[1] - 1] == Variables.PIN_DRAG_SLEEP
-							 
-							 ) ) {
-				foundIt--;		
-				
-				// Dragaoo √© morto
-				/*faz todas as hipoteses de periferia do heroi e verifica se coincide com
-				 * qualquer um dos dragıes, coordenadas sao comparadas individualmente
-				 * mas tem de ser simultaneas &&*/
-				for(int i=0; i<list.size(); i++) {
-					if(
-							(( (heroVector[0] + 1) == list.get(i).getDragonVector()[0]) 
-							&& ( (heroVector[1]) == list.get(i).getDragonVector()[1]))
-							
-							|| (( (heroVector[0] - 1) == list.get(i).getDragonVector()[0]) 
-							&& ( (heroVector[1]) == list.get(i).getDragonVector()[1]))
-							
-							|| (( (heroVector[0]) == list.get(i).getDragonVector()[0]) 
-							&& ( (heroVector[1] + 1) == list.get(i).getDragonVector()[1]))
-							
-							|| (( (heroVector[0]) == list.get(i).getDragonVector()[0]) 
-							&& ( (heroVector[1] - 1) == list.get(i).getDragonVector()[1]))){
-						
-						
-						/*se se verificar a condiÁ„o no mapa mete " " na posiÁ„o do drag„o 'i'
-						 * e remove esse drag„o da lista (supostamente)*/
-						mapaVector[list.get(i).getDragonVector()[0]][list.get(i).getDragonVector()[1]] = Variables.PIN_HALL ;
-						list.remove(i);
-					}
+				if (heroState != Variables.PIN_HERO_ARM && (mapaVector[Vector[0] + 1][Vector[1]] == Variables.PIN_DRAG
+						|| mapaVector[Vector[0] - 1][Vector[1]] == Variables.PIN_DRAG
+						|| mapaVector[Vector[0]][Vector[1] + 1] == Variables.PIN_DRAG
+						|| mapaVector[Vector[0]][Vector[1] - 1] == Variables.PIN_DRAG
+						|| mapaVector[Vector[0] + 1][Vector[1]] == Variables.PIN_DRAG_SWRD
+						|| mapaVector[Vector[0] - 1][Vector[1]] == Variables.PIN_DRAG_SWRD
+						|| mapaVector[Vector[0]][Vector[1] + 1] == Variables.PIN_DRAG_SWRD
+						|| mapaVector[Vector[0]][Vector[1] - 1] == Variables.PIN_DRAG_SWRD)) {
+					win = -1;
+					heroState = Variables.PIN_HERO_DEAD;
+
 				}
-								
-				}	
-			
+
+				// Verificar qualquer frag√£o, a dormir ou acordado. Usado o .toUpperCase() para
+				// por sempre o pin do drag√£o a "D"
+				else if (heroState == Variables.PIN_HERO_ARM
+						&& (mapaVector[Vector[0] + 1][Vector[1]] == Variables.PIN_DRAG
+								|| mapaVector[Vector[0] - 1][Vector[1]] == Variables.PIN_DRAG
+								|| mapaVector[Vector[0]][Vector[1] + 1] == Variables.PIN_DRAG
+								|| mapaVector[Vector[0]][Vector[1] - 1] == Variables.PIN_DRAG
+								|| mapaVector[Vector[0] + 1][Vector[1]] == Variables.PIN_DRAG_SLEEP
+								|| mapaVector[Vector[0] - 1][Vector[1]] == Variables.PIN_DRAG_SLEEP
+								|| mapaVector[Vector[0]][Vector[1] + 1] == Variables.PIN_DRAG_SLEEP
+								|| mapaVector[Vector[0]][Vector[1] - 1] == Variables.PIN_DRAG_SLEEP
+
+						)) {
+					foundIt--;
+
+					// Dragaoo √© morto
+					/*
+					 * faz todas as hipoteses de periferia do heroi e verifica se coincide com
+					 * qualquer um dos dragıes, coordenadas sao comparadas individualmente mas tem
+					 * de ser simultaneas &&
+					 */
+					for (int i = 0; i < list.size(); i++) {
+						if ((((Vector[0] + 1) == list.get(i).getDragonVector()[0])
+								&& ((Vector[1]) == list.get(i).getDragonVector()[1]))
+
+								|| (((Vector[0] - 1) == list.get(i).getDragonVector()[0])
+										&& ((Vector[1]) == list.get(i).getDragonVector()[1]))
+
+								|| (((Vector[0]) == list.get(i).getDragonVector()[0])
+										&& ((Vector[1] + 1) == list.get(i).getDragonVector()[1]))
+
+								|| (((Vector[0]) == list.get(i).getDragonVector()[0])
+										&& ((Vector[1] - 1) == list.get(i).getDragonVector()[1]))) {
+
+							/*
+							 * se se verificar a condiÁ„o no mapa mete " " na posiÁ„o do drag„o 'i' e remove
+							 * esse drag„o da lista (supostamente)
+							 */
+							mapaVector[list.get(i).getDragonVector()[0]][list.get(i)
+									.getDragonVector()[1]] = Variables.PIN_HALL;
+							list.remove(i);
+						}
+					}
+
+				}
+
 			}
-			mapaVector[heroVector[0]][heroVector[1]] = heroState;
+			mapaVector[Vector[0]][Vector[1]] = heroState;
 		}
-	
+
 		mapaObject.setMapa(mapaVector);
-		
+
 	}
+
 	public int getWin() {
 		return win;
 	}
+
 	public int[] getHeroVector() {
-		return heroVector;
+		return Vector;
 	}
+
 	public void setHeroVector(int[] heroVector) {
-		this.heroVector = heroVector;
+		this.Vector = heroVector;
 	}
+
 	public boolean isArmed() {
 		return armed;
 	}
+
 	public void setArmed(boolean armed) {
 		this.armed = armed;
 	}
+
 	public void setWin(int win) {
 		this.win = win;
 	}
+
 	public int isFoundIt() {
 		return foundIt;
 	}
+
 	public void setFoundIt(int foundIt) {
-		this.foundIt=this.foundIt-foundIt;
+		this.foundIt = this.foundIt - foundIt;
 	}
 
 }
