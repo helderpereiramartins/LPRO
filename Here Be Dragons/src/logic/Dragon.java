@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-public class Dragon extends Coordinates {
+public class Dragon extends Elements {
 
 	// private int[] dragonVector;
 	private String[][] mapaVector;

@@ -1,5 +1,5 @@
 package logic;
 
-public class Coordinates {
+public class Elements {
 	protected int[] Vector = new int[2];
 }

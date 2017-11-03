@@ -2,7 +2,7 @@ package logic;
 
 import java.util.ArrayList;
 
-public class Hero extends Coordinates {
+public class Hero extends Elements {
 
 	private String heroState = Variables.PIN_HERO;
 	private int foundIt = 0;
